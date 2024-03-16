@@ -23,4 +23,4 @@ INIT_MSG = ''' _________________________________________________________________
 |_________________________________________________________________________________|
 
 '''
-WARNING_SHUTDOWN = 'Press enter key to sutdown server\n[WARNING!!!!] This action will close all the connections between client and proxy and between proxy and server as well, without verifying whether all data have been transferred correctly. This is a risky action that may result in data loss, so use with it caution.\n{SPACE}'
+WARNING_SHUTDOWN = 'Press enter key to sutdown server\n[WARNING!!!!] This action will close all the connections between client and proxy and between proxy and server as well, without verifying whether all data have been transferred correctly. This is a risky action that may result in data loss, so use with it caution.\n'+SPACE

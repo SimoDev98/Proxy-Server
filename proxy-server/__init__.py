@@ -11,7 +11,7 @@
 ####################################################################
 
 
-import proxy_server
+import connection
 from sys import exit
 from threading import Thread
 from json import load
@@ -23,23 +23,21 @@ def main():
         #Read HOST and PORT from config file:
         with open('config.json', 'r') as file:
             config = load(file)
-            proxy_server.HOST = config["HOST"]
-            proxy_server.PORT = config["PORT"]
+            connection.HOST = config["HOST"]
+            connection.PORT = config["PORT"]
         #Connect socket
-        proxy_server.server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        proxy_server.server_socket.bind((proxy_server.HOST, proxy_server.PORT))
+        connection.server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        connection.server_socket.bind((connection.HOST, connection.PORT))
         print(INIT_MSG)
     except Exception as e:
         print(f'Could not start up proxy server.\nException: {e}')
         exit(1)
     
-    t1 = Thread(target=proxy_server.shutdown_server_listener, args=[proxy_server.press_key])
+    t1 = Thread(target=connection.shutdown_server_listener, args=[connection.press_key])
     t1.start()
-    t2 = Thread(target=proxy_server.discard_disconnected_sockets, args=[20])
-    proxy_server.keep_listening = True
-    proxy_server.listen_new_connections()
+    connection.keep_listening = True
+    connection.listen_new_connections()
     t1.join()
-    t2.join()
     
     exit(0)
 
